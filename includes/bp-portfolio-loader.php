@@ -128,13 +128,13 @@ class BP_Portfolio_Component extends BP_Component {
      */
     function register_post_types() {
         $labels = array(
-            'name' => __('Products', 'bp-portfolio'),
-            'singular' => __('Product', 'bp-portfolio')
+            'name' => __('Projects', 'bp-portfolio'),
+            'singular' => __('Project', 'bp-portfolio')
         );
 
         // Set up the argument array for register_post_type()
         $args = array(
-            'label' => __('Products', 'bp-portfolio'),
+            'label' => __('Projects', 'bp-portfolio'),
             'labels' => $labels,
             'public' => false,
             'show_ui' => true,

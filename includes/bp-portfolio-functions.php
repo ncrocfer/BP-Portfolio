@@ -68,6 +68,32 @@ function bp_portfolio_save_item( $args = array() ) {
 
 
 /**
+ * Delete a project
+ */
+function bp_portfolio_delete_item( $project_id ) {
+	global $bp;
+        
+        $project = new BP_Portfolio_Item( array( 'id' => $project_id, 'author_id' => bp_loggedin_user_id() ) );
+        $project->get();
+
+        if(($project->query->post->post_author == bp_loggedin_user_id()) AND ($project->query->post->post_type == 'portfolio')) {
+            
+            // post_parent is the ID of thumbnail
+            $thumbnail_id = $project->query->post->post_parent;
+            
+            // So delete this project
+            if($project->delete()) {
+                if($thumbnail_id != 0)
+                    wp_delete_attachment( $thumbnail_id );
+                return true;
+            }
+        }
+
+        return false;
+}
+
+
+/**
  * Add support of post thumbnails
  */
 if ( function_exists( 'add_theme_support' ) ) {

@@ -33,8 +33,21 @@ Default template for BP-Portfolio plugin
 }
 
 .item-project .item-project-content span {
-    font-style: italic;
     line-height: 24px;
+}
+
+.item-project .item-project-content h3 .item-project-content-meta {
+    display: none;
+    float: right;
+    font-size: 13px;
+}
+
+.item-project .item-project-content h3 .item-project-content-meta a {
+    color: #BC0B0B;
+}
+
+.item-project:hover > .item-project-content h3 .item-project-content-meta {
+    display: block;
 }
 
 .item-project .item-project-content p {

@@ -39,6 +39,21 @@ class BP_Portfolio_Item {
     }
     
     
+    /**
+     * Delete the post     
+     */
+    public function delete() {
+        $this->id = apply_filters( 'bp_portfolio_data_id_before_save', $this->id, $this->id );
+        
+        do_action( 'bp_portfolio_data_before_delete', $this );
+        
+        $result = wp_delete_post( $this->id );
+        return $result;
+        
+        do_action( 'bp_portfolio_data_after_delete', $this );
+    }
+    
+    
     /*
      * Save the object in the database and dynamically switch between INSERT and UPDATE
      */
@@ -134,8 +149,16 @@ class BP_Portfolio_Item {
                     'per_page'              => 10,
                     'paged'                 => 1
             );
-
+            
+            
+            // Filter by post id
+            $id = ($id) ? $id : $this->id;
+            if ( $id ) {
+                    $query_args['p'] = $id;
+            }
+            
             // Filter by author
+            $author_id = ($author_id) ? $author_id : $this->author_id;
             if ( $author_id ) {
                     $query_args['author'] = $author_id;
             }

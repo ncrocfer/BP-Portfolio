@@ -1,0 +1,50 @@
+/*------------------------------------------
+Default template for BP-Portfolio plugin
+-------------------------------------------*/
+
+.item-project {
+    padding: 10px;
+    min-height: 200px;
+}
+
+.item-project .item-project-pictures {
+    float: left;
+}
+
+.item-project .item-project-pictures img {
+    border: 3px solid #FFFFFF;
+    border-radius: 2px 2px 2px 2px;
+    box-shadow: 0 1px 4px #979797;
+}
+
+.item-project .item-project-content {
+    margin-left: 252px;
+    padding: 0 0 0 28px;
+    position: relative;
+}
+
+.item-project .item-project-content h3 {
+    margin: 0 0 5px;
+}
+
+.item-project .item-project-content h3 a {
+    color: #666666;
+    text-decoration: none;
+}
+
+.item-project .item-project-content span {
+    font-style: italic;
+    line-height: 24px;
+}
+
+.item-project .item-project-content p {
+    margin-top: 3px;
+}
+
+.item-project-separator {
+    background: url("../img/separator.jpg") no-repeat scroll center top transparent;
+    display: block;
+    height: 1px;
+    margin: 10px auto 27px;
+    width: 478px;
+}

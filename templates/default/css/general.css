@@ -42,8 +42,14 @@ Default template for BP-Portfolio plugin
     font-size: 13px;
 }
 
-.item-project .item-project-content h3 .item-project-content-meta a {
+.item-project .item-project-content h3 .item-project-content-meta .edit a {
+    color: #21759B;
+    margin-right: 5px;
+}
+
+.item-project .item-project-content h3 .item-project-content-meta .delete a {
     color: #BC0B0B;
+    margin-left: 3px;
 }
 
 .item-project:hover > .item-project-content h3 .item-project-content-meta {

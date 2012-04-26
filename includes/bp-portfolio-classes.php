@@ -58,7 +58,7 @@ class BP_Portfolio_Item {
      * Save the object in the database and dynamically switch between INSERT and UPDATE
      */
     public function save() {
-        
+
         global $wpdb, $bp;
         
         $this->id = apply_filters( 'bp_portfolio_data_id_before_save', $this->id, $this->id );
@@ -75,12 +75,16 @@ class BP_Portfolio_Item {
         
         
         if ( $this->id ) {
+            
             // We update the existing item
+            $attach_id = fileupload_process($this->screenshot);
+            
             $wp_update_post_args = array(
                     'ID'		=> $this->id,
                     'post_author'	=> $this->author_id,
                     'post_title'	=> $this->title,
-                    'post_content'      => $this->description
+                    'post_content'      => $this->description,
+                    'post_parent'       => $attach_id
             );
             
             $result = wp_update_post( $wp_update_post_args );
@@ -91,8 +95,8 @@ class BP_Portfolio_Item {
             }
             
         } else {
-            // We insert a new item
             
+            // We insert a new item
             $attach_id = fileupload_process($this->screenshot);
             
             $wp_insert_post_args = array(

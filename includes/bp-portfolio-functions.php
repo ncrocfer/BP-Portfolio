@@ -39,6 +39,7 @@ function bp_portfolio_save_item( $args = array() ) {
 	global $bp;
 
         $defaults = array (
+                'id'            => null,
 		'author_id'     => $bp->loggedin_user->id,
 		'title'         => null,
 		'description'   => null,

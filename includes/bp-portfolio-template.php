@@ -157,18 +157,18 @@ function bp_portfolio_root_slug() {
 	}
 
         
-        
+
 /**
  * Echoes the form action for Portfolio HTML forms
  */
-function bp_portfolio_form_action() {
-	echo bp_get_portfolio_form_action();
+function bp_portfolio_form_action( $action ) {
+	echo bp_get_portfolio_form_action( $action );
 }
 	/**
 	 * Returns the form action for Portfolio HTML forms
 	 */
-	function bp_get_portfolio_form_action() {
-		return apply_filters( 'bp_get_portfolio_form_action', trailingslashit( bp_loggedin_user_domain() . bp_get_portfolio_slug() . '/' . bp_current_action() . '/' . bp_action_variable( 0 ) ) );
+	function bp_get_portfolio_form_action( $action ) {
+		return apply_filters( 'bp_get_portfolio_form_action', trailingslashit( bp_loggedin_user_domain() . bp_get_portfolio_slug() . '/' . $action . '/' . bp_action_variable( 0 ) ) );
 	}
     
 
@@ -201,7 +201,6 @@ function bp_portfolio_item_pagination() {
 	 */
 	function bp_portfolio_get_item_pagination() {
 		global $items_template;
-                //wp_die(print_r($items_template));
 		return apply_filters( 'bp_portfolio_get_item_pagination', $items_template->pag_links );
 	}
         

@@ -37,10 +37,15 @@
                                                 <h3>
                                                     <a href=<?php bp_portfolio_item_permalink() ?>><?php bp_portfolio_item_title() ?></a>
                                                     <?php if(bp_is_my_profile()) :?>
-                                                    <span class="item-project-content-meta"><a href="<?php echo wp_nonce_url(bp_core_get_user_domain(bp_loggedin_user_id()) . bp_get_portfolio_slug() . '/delete/' .  get_the_ID(), 'delete_project'); ?>"><?php _e('Delete', 'bp-portfolio'); ?></a</span>
+                                                    <div class="item-project-content-meta">
+                                                        
+                                                        <span class="edit"><a href="<?php echo bp_core_get_user_domain(bp_loggedin_user_id()) . bp_get_portfolio_slug() . '/edit/' .  get_the_ID(); ?>">Edit</a></span>
+                                                        |
+                                                        <span class="delete"><a href="<?php echo wp_nonce_url(bp_core_get_user_domain(bp_loggedin_user_id()) . bp_get_portfolio_slug() . '/delete/' .  get_the_ID(), 'delete_project'); ?>" onclick="javascript:return confirm('<?php _e('Are you sure ?', 'bp-portfolio'); ?>')"><?php _e('Delete', 'bp-portfolio'); ?></a</span>
+                                                    </div>
                                                     <?php endif; ?>
                                                 </h3>
-                                                <span><a href="http://www.google.fr"><?php bp_portfolio_item_url() ?></a></span>
+                                                <span><a href="<?php bp_portfolio_item_url() ?>"><?php bp_portfolio_item_url() ?></a></span>
                                                 <p><?php bp_portfolio_item_description() ?></p>
                                             </div>
                                             <br />

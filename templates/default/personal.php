@@ -27,7 +27,7 @@
                                 
                                     <h4><?php _e( 'My projects', 'bp-portfolio' ) ?></h4>
                                     
-                                    <?php while ( bp_portfolio_has_items(array('author_id' => bp_displayed_user_id())) ) : bp_portfolio_the_item(); ?>
+                                    <?php while ( bp_portfolio_has_items(array('author_id' => bp_displayed_user_id(), 'posts_per_page' => -1)) ) : bp_portfolio_the_item(); ?>
 
                                         <div class="item-project">
                                             <div class="item-project-pictures">
@@ -35,7 +35,7 @@
                                             </div>
                                             <div class="item-project-content">
                                                 <h3>
-                                                    <a href=<?php bp_portfolio_item_permalink() ?>><?php bp_portfolio_item_title() ?></a>
+                                                    <?php bp_portfolio_item_title() ?>
                                                     <?php if(bp_is_my_profile()) :?>
                                                     <div class="item-project-content-meta">
                                                         

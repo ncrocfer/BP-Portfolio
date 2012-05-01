@@ -3,8 +3,11 @@ Default template for BP-Portfolio plugin
 -------------------------------------------*/
 
 .item-project {
-    padding: 10px;
-    min-height: 200px;
+    min-height: 180px;
+}
+
+.item-project {
+    padding: 30px 10px 10px;
 }
 
 .item-project .item-project-pictures {
@@ -42,6 +45,11 @@ Default template for BP-Portfolio plugin
     font-size: 13px;
 }
 
+.item-project .item-project-content h3 .item-project-content-avatar {
+    float: right;
+    font-size: 11px;
+}
+
 .item-project .item-project-content h3 .item-project-content-meta .edit a {
     color: #21759B;
     margin-right: 5px;
@@ -64,6 +72,21 @@ Default template for BP-Portfolio plugin
     background: url("../img/separator.jpg") no-repeat scroll center top transparent;
     display: block;
     height: 1px;
-    margin: 10px auto 27px;
+    margin: 15px auto 10px;
     width: 478px;
+}
+
+/* For activity screen */
+.activity .item-project {
+    padding: 3px;
+}
+
+.activity .item-project .item-project-content .item-project-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.activity .item-project .item-project-content .item-project-url {
+    margin-bottom: 4px;
 }

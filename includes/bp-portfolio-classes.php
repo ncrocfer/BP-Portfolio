@@ -13,6 +13,8 @@ class BP_Portfolio_Item {
     var $updated_at;
     var $tags;
     var $query;
+    var $prpage;
+    var $num;
     
     
     public function __construct( $args = array() ) {
@@ -27,15 +29,23 @@ class BP_Portfolio_Item {
             'created_at' => date( 'Y-m-d H:i:s' ),
             'updated_at' => date( 'Y-m-d H:i:s' ),
             'tags' => array()
-        );
+        );       
         
         $r = wp_parse_args( $args, $defaults );
         extract( $r );
+        
+        $this->prpage = isset( $_REQUEST['prpage'] ) ?  $_REQUEST['prpage'] : 1;
+        $this->num  = isset( $_REQUEST['num'] ) ? $_REQUEST['num'] : 10;
+        
+        if(!is_numeric($this->prpage))
+            $this->prpage = 1;
+        if(!is_numeric($this->num))
+            $this->num = 10;
 
         foreach( $r as $key => $value ) {
             $this->{$key} = $value;
         }
-
+        
     }
     
     
@@ -76,16 +86,18 @@ class BP_Portfolio_Item {
         
         if ( $this->id ) {
             
-            // We update the existing item
-            $attach_id = fileupload_process($this->screenshot);
-            
             $wp_update_post_args = array(
                     'ID'		=> $this->id,
                     'post_author'	=> $this->author_id,
                     'post_title'	=> $this->title,
-                    'post_content'      => $this->description,
-                    'post_parent'       => $attach_id
+                    'post_content'      => $this->description
             );
+            
+            // We update the existing item if a new screenshot is sent
+            if(is_array($this->screenshot)) {
+                $attach_id = fileupload_process($this->screenshot);
+                $wp_update_post_args['post_parent'] = $attach_id;
+            }
             
             $result = wp_update_post( $wp_update_post_args );
             
@@ -142,16 +154,17 @@ class BP_Portfolio_Item {
             );
 
             $r = wp_parse_args( $args, $defaults );
-            extract( $r );
+            extract( $r );           
+
+            $this->prpage = isset( $page ) ?  $page : 1;
+            $this->num = isset( $posts_per_page ) ?  $posts_per_page : 10;
             
             $query_args = array(
                     'post_status'           => 'publish',
                     'post_type'             => 'portfolio',
-                    'posts_per_page'        => $per_page,
-                    'paged'                 => $paged,
+                    'posts_per_page'        => $this->num,
+                    'paged'                 => $this->prpage,
                     'meta_query'            => array(),
-                    'per_page'              => 10,
-                    'paged'                 => 1
             );
             
             
@@ -160,7 +173,7 @@ class BP_Portfolio_Item {
             if ( $id ) {
                     $query_args['p'] = $id;
             }
-            
+
             // Filter by author
             $author_id = ($author_id) ? $author_id : $this->author_id;
             if ( $author_id ) {
@@ -168,16 +181,16 @@ class BP_Portfolio_Item {
             }
             
             $this->query = new WP_Query( $query_args );
-            
+
             // Set up some pagination
             $this->pag_links = paginate_links( array(
-                    'base' => add_query_arg( 'items_page', '%#%' ),
-                    'format' => '',
-                    'total' => ceil( (int) $this->query->found_posts / (int) $this->query->query_vars['posts_per_page'] ),
-                    'current' => (int) $paged,
-                    'prev_text' => '&larr;',
-                    'next_text' => '&rarr;',
-                    'mid_size' => 1
+                    'base'      => add_query_arg( array( 'prpage' => '%#%', 'num' => (int)$this->num ) ),
+                    'format'    => '',
+                    'total'     => ceil( (int)$this->query->found_posts / (int)$this->num ),
+                    'current'   => (int) $this->prpage,
+                    'prev_text' => _x( '&larr;', 'Project pagination previous text', 'buddypress' ),
+                    'next_text' => _x( '&rarr;', 'Project pagination next text', 'buddypress' ),
+                    'mid_size'  => 1
             ) );
             
         }   

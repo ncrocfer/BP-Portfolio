@@ -40,7 +40,7 @@ class BP_Portfolio_Component extends BP_Component {
 //            'includes/bp-portfolio-notifications.php',
 //            'includes/bp-portfolio-widgets.php',
             'includes/bp-portfolio-cssjs.php',
-//            'includes/bp-portfolio-ajax.php',
+            'includes/bp-portfolio-ajax.php',
             'includes/bp-portfolio-template.php'
         );
         

@@ -26,14 +26,16 @@ function bp_portfolio_load_template_filter( $found_template, $templates ) {
 add_filter( 'bp_located_template', 'bp_portfolio_load_template_filter', 10, 2 );
 
 
+// Load a sub-template within the plugin
+function load_sub_template( $template ) {
+	if ( $located_template = apply_filters( 'bp_located_template', locate_template( $template , false ), $template ) )	
+		load_template( apply_filters( 'bp_load_template', $located_template ) );
+}
+
+
 
 /**
- * 
- * Make this process :
- * - save a new item
- * - sends an notification to the user
- * - records an activity stream item
- * 
+ * Save the new item and records an activity item for it
  */
 function bp_portfolio_save_item( $args = array() ) {
 	global $bp;
@@ -48,17 +50,36 @@ function bp_portfolio_save_item( $args = array() ) {
 	);
         
         $db_args = wp_parse_args( $args, $defaults );
+        extract( $db_args, EXTR_SKIP );
         
         $portfolio = new BP_Portfolio_Item( $db_args );
         
         // Records an activity
-        if($portfolio->save()) {
-            /* Now record the new 'new_high_five' activity item */
+        if($result = $portfolio->save()) {
+            
+            $project = new BP_Portfolio_Item( array( 'id' => $result ) );
+            $project->get();
+            
+            $title = $project->query->post->post_title;
+            $description = $project->query->post->post_content;
+            $url = get_post_meta($result, 'bp_portfolio_url', true);
+            
+            $attachment = wp_get_attachment_image_src($project->query->post->post_parent, 'portfolio-thumb');
+            if($attachment != 0)
+                $thumbnail = apply_filters( 'bp_portfolio_get_item_thumbnail', $attachment[0]);
+            else
+                $thumbnail = apply_filters( 'bp_portfolio_get_item_thumbnail', BP_PORTFOLIO_PLUGIN_URL . '/templates/default/img/default.png');
+            
+            
+            /* Now record the new activity item */
             $user_link = bp_core_get_userlink( $bp->loggedin_user->id );
-
+            $user_portfolio_link = '<a href="'. bp_core_get_user_domain($bp->loggedin_user->id) . BP_PORTFOLIO_SLUG . '">portfolio</a>';
+            $activity_content = sprintf(__( '<div class="item-project"><div class="item-project-pictures"><img width="250px" height="170px" src="%s"></div><div class="item-project-content"><div class="item-project-title">%s</div><div class="item-project-url"><a href="%s">%s</a></div><div class="item-project-desc">%s</div></div></div></div>', 'bp-portfolio'), $thumbnail, $title, $url, $url, $description);
+            
             bp_portfolio_record_activity( array(
-                    'type' => 'new-portfolio',
-                    'action' => apply_filters( 'bp_new_portfolio_activity_action', sprintf( __( '%s created a new project in his portfolio', 'bp-portfolio' ), $user_link ), $user_link ),
+                    'type' => 'new_project',
+                    'action' => apply_filters( 'bp_new_portfolio_activity_action', sprintf( __( '%s created a new project in his %s', 'bp-portfolio' ), $user_link, $user_portfolio_link ), $user_link, $user_portfolio_link ),
+                    'content' => $activity_content,
                     'item_id' => $bp->loggedin_user->id,
             ) );
             return true;

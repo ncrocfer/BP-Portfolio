@@ -1,23 +1,27 @@
 <?php
 
 
-function bp_portfolio_has_items( $args = '' ) {
+function bp_portfolio_has_items( $args = array() ) {
 	global $bp, $items_template;
 
+        $user_id = 0;
+        if ( !empty( $bp->displayed_user->id ) )
+		$user_id = $bp->displayed_user->id;
+        
 	// This keeps us from firing the query more than once
 	if ( empty( $items_template ) ) {
             
 		$default = array(
                     'id' => 0,
-                    'author_id' => 0,
+                    'author_id' => $user_id,
                     'title' => null,
                     'description' => null,
                     'url' => null,
                     'created_at' => date( 'Y-m-d H:i:s' ),
                     'updated_at' => date( 'Y-m-d H:i:s' ),
                     'tags' => array(),
-                    'per_page'	=> 10,
-                    'paged'	=> 1
+                    'posts_per_page'	=> 10,
+                    'page'	=> 1
                 );
                 
 		$r = wp_parse_args( $args, $defaults );
@@ -223,10 +227,10 @@ function bp_portfolio_total_projects_count() {
     
         
 /**
- *Echo the total of projects for a particular user
+ * Echo the total of projects for a particular user
  */
 function bp_portfolio_user_projects_count( $user_id ) {
-    echo bp_portfolio_user_projects_count( $user_id );
+    echo bp_portfolio_get_user_projects_count( $user_id );
 }
         /**
         * Return the total of projects for a particular user
@@ -242,6 +246,42 @@ function bp_portfolio_user_projects_count( $user_id ) {
                 return 0;
             }
         }
+        
+        
+/**
+ * Echo the user's avatar
+ */    
+function bp_portfolio_user_avatar( $args = '' ) {
+    echo bp_portfolio_get_user_avatar( $args );
+}
+    function bp_portfolio_get_user_avatar( $args = '' ) {
+            global $bp;
+
+            $defaults = array(
+                    'type'   => 'thumb',
+                    'width'  => false,
+                    'height' => false,
+                    'html'   => true,
+                    'alt'    => __( 'Avatar of %s', 'buddypress' )
+            );
+
+            $r = wp_parse_args( $args, $defaults );
+            extract( $r, EXTR_SKIP );
+
+            return apply_filters( 'bp_portfolio_get_user_avatar', bp_core_fetch_avatar( array( 'item_id' => get_the_author_ID(), 'type' => $type, 'width' => $width, 'height' => $height, 'html' => $html, 'alt' => $alt ) ) );
+    }
+    
+    
+    
+/**
+ * Echo the user's ID
+ */    
+function bp_portfolio_user_id() {
+    echo bp_portfolio_get_user_id();
+}
+    function bp_portfolio_get_user_id() {
+            return get_the_author_ID();
+    }
 
 
 ?>

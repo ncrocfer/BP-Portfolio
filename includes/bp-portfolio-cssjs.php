@@ -6,7 +6,7 @@
 function bp_portfolio_add_css() {
 	global $bp;
 
-	if ( $bp->current_component == $bp->portfolio->slug ) {
+	if ( ($bp->current_component == $bp->portfolio->slug) OR ($bp->current_component == $bp->activity->slug) ) {
             wp_register_style( 'bp-portfolio-css', BP_PORTFOLIO_PLUGIN_URL . '/templates/default/css/general.css' );
             wp_enqueue_style( 'bp-portfolio-css' );
         }

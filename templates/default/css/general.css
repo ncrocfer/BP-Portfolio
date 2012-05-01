@@ -90,3 +90,17 @@ Default template for BP-Portfolio plugin
 .activity .item-project .item-project-content .item-project-url {
     margin-bottom: 4px;
 }
+
+/* For add/edit screen */
+textarea#description {
+    height: 150px;
+}
+
+p.item-characters-left {
+    font-style: italic;
+    margin-top: 2px;
+}
+
+p.item-characters-left span {
+    font-weight: bold;
+}

@@ -53,6 +53,12 @@ function bp_portfolio_screen_add() {
         if(empty($_POST['title-input']) OR empty($_POST['url-input']) OR empty($_POST['description'])) {
             bp_core_add_message(__('All fields are required', 'bp-portfolio'), 'error');
         } else  {
+            
+            // Check description size
+            if(strlen($_POST['description']) > BP_PORTFOLIO_DESC_MAX_SIZE) {
+                $_POST['description'] = substr($_POST['description'], 0, BP_PORTFOLIO_DESC_MAX_SIZE);
+            }
+                
             // Save the item
             $posts = array( 'author_id' => bp_loggedin_user_id(), 'title' => $_POST['title-input'], 'description' => $_POST['description'], 'url' => $_POST['url-input'] );
             
@@ -62,7 +68,7 @@ function bp_portfolio_screen_add() {
             }
             
             if ( $item = bp_portfolio_save_item( $posts ) ) {
-                    bp_core_add_message( __( 'Item has been saved', 'bp-portfolio' ) );
+                    bp_core_add_message( __( 'Project has been saved', 'bp-portfolio' ) );
                     bp_core_redirect(bp_core_get_user_domain(bp_loggedin_user_id()) . bp_get_portfolio_slug());
                    
             } else {

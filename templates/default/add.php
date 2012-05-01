@@ -48,6 +48,7 @@
 
                                     <label for="description-input"><?php _e("Description", 'bp-portfolio') ?></label>
                                     <textarea name="description" id="description" rows="15" cols="40"><?php echo ($edit_template) ? $project->query->post->post_content : ''; ?></textarea>
+                                    <p class="item-characters-left"><span id="charLeft"><?php echo BP_PORTFOLIO_DESC_MAX_SIZE; ?></span> <?php _e('characters left', 'bp-portfolio'); ?></p>
                                     
                                     <label for="screenshot-input"><?php _e("Screenshot", 'bp-portfolio') ?><?php if($edit_template) : ?><span style="font-weight: normal; font-style: italic; margin-left: 15px;"><?php _e('(Overwrite the previous one if it exists)', 'bp-portfolio'); ?></span><?php endif; ?></label>
                                     <input type="file" name="screenshot-input" id="screenshot-input" />
@@ -64,11 +65,6 @@
 
                                 </form>
 
-                                <script type="text/javascript">
-                                        document.getElementById("title-input").focus();
-                                </script>
-                            
-                            
                         </div><!-- #item-body -->
 
 		</div><!-- .padder -->
@@ -76,4 +72,23 @@
 
 	<?php locate_template( array( 'sidebar.php' ), true ) ?>
 
+        <script type="text/javascript">
+                document.getElementById("title-input").focus();
+
+                jq(document).ready(function() {
+                    
+                    var contentLen = jq('#description').val().length;
+                    jq('#charLeft').text(<?php echo BP_PORTFOLIO_DESC_MAX_SIZE; ?> - contentLen);
+                    
+                    jq('#description').keyup(function() {
+                        var len = this.value.length;
+                        if (len >= <?php echo BP_PORTFOLIO_DESC_MAX_SIZE; ?>) {
+                            this.value = this.value.substring(0, <?php echo BP_PORTFOLIO_DESC_MAX_SIZE; ?>);
+                        }
+                        jq('#charLeft').text(<?php echo BP_PORTFOLIO_DESC_MAX_SIZE; ?> - len);
+                    });
+                });
+
+        </script>
+        
 <?php get_footer() ?>

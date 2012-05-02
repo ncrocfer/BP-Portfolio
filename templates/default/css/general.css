@@ -104,3 +104,10 @@ p.item-characters-left {
 p.item-characters-left span {
     font-weight: bold;
 }
+
+span.error {
+    display: none;
+    color: #BC0B0B;
+    font-style: italic;
+    margin-left: 10px;
+}

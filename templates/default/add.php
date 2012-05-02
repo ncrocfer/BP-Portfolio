@@ -45,6 +45,7 @@
                                     
                                     <label for="url-input"><?php _e("Url", 'bp-portfolio') ?></label>
                                     <input type="text" name="url-input" id="url-input" value="<?php echo ($edit_template) ? get_post_meta($project->query->post->ID, 'bp_portfolio_url', true): ''; ?>"/>
+                                    <span class="error"><?php _e('Must be a valid URL !', 'bp-portfolio'); ?></span>
 
                                     <label for="description-input"><?php _e("Description", 'bp-portfolio') ?></label>
                                     <textarea name="description" id="description" rows="15" cols="40"><?php echo ($edit_template) ? $project->query->post->post_content : ''; ?></textarea>
@@ -87,7 +88,21 @@
                         }
                         jq('#charLeft').text(<?php echo BP_PORTFOLIO_DESC_MAX_SIZE; ?> - len);
                     });
+                    
+                    jq('#url-input').blur(function() {
+                        if(!checkUrl(jq('#url-input').val())) {
+                            jq('.error').show();
+                        } else {
+                            jq('.error').hide();
+                        }
+                    });
+                    
                 });
+                
+                function checkUrl(s) {
+                    var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+                    return regexp.test(s);
+                }
 
         </script>
         

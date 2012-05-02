@@ -47,9 +47,9 @@ class BP_Portfolio_Component extends BP_Component {
         parent::includes($includes);
         
         // Load the admin required file
-//        if (is_admin() || is_network_admin()) {
-//            include( BP_PORTFOLIO_PLUGIN_DIR . '/includes/bp-portfolio-admin.php' );
-//        }
+        if (is_admin() || is_network_admin()) {
+            include( BP_PORTFOLIO_PLUGIN_DIR . '/includes/bp-portfolio-admin.php' );
+        }
     }
     
     

@@ -64,7 +64,11 @@ class BP_Portfolio_Component extends BP_Component {
             define('BP_PORTFOLIO_SLUG', $this->id);
         
         if(!defined('BP_PORTFOLIO_DESC_MAX_SIZE'))
-            define('BP_PORTFOLIO_DESC_MAX_SIZE', 720);
+            define('BP_PORTFOLIO_DESC_MAX_SIZE', get_option('bp_portfolio_desc_max_size'));
+        
+        if(!defined('BP_PORTFOLIO_TEMPLATE'))
+            define('BP_PORTFOLIO_TEMPLATE', get_option('bp_portfolio_template'));
+        
         
         $global_tables = array(
             'table_items_name' => $bp->table_prefix . BP_PORTFOLIO_ITEMS_TABLE

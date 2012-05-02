@@ -23,7 +23,7 @@
                     
                     <div id="projects-dir-list" class="projects dir-list">
 
-                        <?php load_sub_template( array( 'default/projects-loop.php' ) ); ?>
+                        <?php load_sub_template( array( BP_PORTFOLIO_TEMPLATE . '/projects-loop.php' ) ); ?>
                         
                     </div>
                 

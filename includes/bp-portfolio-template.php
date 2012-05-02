@@ -109,7 +109,7 @@ function bp_portfolio_item_thumbnail() {
             if($thumbnail != 0)
                 return apply_filters( 'bp_portfolio_get_item_thumbnail', $thumbnail[0]);
             else
-                return apply_filters( 'bp_portfolio_get_item_thumbnail', BP_PORTFOLIO_PLUGIN_URL . '/templates/default/img/default.png');
+                return apply_filters( 'bp_portfolio_get_item_thumbnail', BP_PORTFOLIO_PLUGIN_URL . '/templates/' . BP_PORTFOLIO_TEMPLATE . '/img/default.png');
         }
 
 

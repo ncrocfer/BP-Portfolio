@@ -1,28 +1,17 @@
 <?php
 
 /**
- * Install the necessary tables
+ * Setup the default options in the wp_options table
  */
-function bp_portfolio_install_tables() {
-    global $wpdb;
-
-    $items_table_name = $wpdb->prefix . BP_PORTFOLIO_ITEMS_TABLE;
-
-    $sql = "CREATE TABLE IF NOT EXISTS $items_table_name (
-                id MEDIUMINT( 9 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-                author_id MEDIUMINT( 9 ) NOT NULL,
-                title TEXT NOT NULL ,
-                description TEXT NOT NULL ,
-                url VARCHAR( 255 ) NOT NULL ,
-                created_at DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-                updated_at DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-                tags TEXT NOT NULL
-            );";
-
-    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    dbDelta($sql);
-
-    add_option("bp_portfolio_db_version", BP_PORTFOLIO_DB_VERSION);
+function bp_portfolio_default_options() {
+    
+    
+    // The default max size for the description of a project
+    add_option('bp_portfolio_desc_max_size', '720');
+    
+    // The default template
+    add_option('bp_portfolio_template', 'default');
+    
 }
 
 ?>

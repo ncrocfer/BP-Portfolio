@@ -9,7 +9,7 @@ function bp_portfolio_directory_setup() {
 
 		do_action( 'bp_portfolio_directory_setup' );
 
-		bp_core_load_template( apply_filters( 'portfolio_directory_template', 'default/index' ) );
+		bp_core_load_template( apply_filters( 'portfolio_directory_template', BP_PORTFOLIO_TEMPLATE . '/index' ) );
 	}
 }
 add_action( 'bp_screens', 'bp_portfolio_directory_setup' );
@@ -25,7 +25,7 @@ function bp_portfolio_screen_personal() {
 	do_action( 'bp_portfolio_personal_screen' );
 
 	// Displaying Content
-	bp_core_load_template( apply_filters( 'bp_portfolio_template_screen_one', 'default/personal' ) );
+	bp_core_load_template( apply_filters( 'bp_portfolio_template_screen_one', BP_PORTFOLIO_TEMPLATE . '/personal' ) );
 }
 
 
@@ -47,7 +47,7 @@ function bp_portfolio_screen_add() {
         // Check the nonce
         if(!wp_verify_nonce($_POST['_wpnonce'], 'project_form_nonce')) {
             bp_core_add_message( __( 'There was an error recording the project, please try again', 'bp-portfolio' ), 'error' );
-            bp_core_load_template( apply_filters( 'bp_portfolio_template_screen_add', 'default/personal' ) );
+            bp_core_load_template( apply_filters( 'bp_portfolio_template_screen_add', BP_PORTFOLIO_TEMPLATE . '/personal' ) );
         }
         
         if(empty($_POST['title-input']) OR empty($_POST['url-input']) OR empty($_POST['description'])) {
@@ -81,7 +81,7 @@ function bp_portfolio_screen_add() {
     do_action( 'bp_portfolio_add_screen' );
 
     // Displaying Content
-    bp_core_load_template( apply_filters( 'bp_portfolio_template_screen_one', 'default/add' ) );
+    bp_core_load_template( apply_filters( 'bp_portfolio_template_screen_one', BP_PORTFOLIO_TEMPLATE . '/add' ) );
 
 }
 
@@ -104,13 +104,13 @@ function bp_portfolio_screen_edit() {
             $project->get(array('id' => $project_id));
             if($project->query->post->post_author != bp_loggedin_user_id()) {
                 bp_core_add_message( __( 'There was an error recording the project, please try again', 'bp-portfolio' ), 'error' );
-                bp_core_load_template( apply_filters( 'bp_portfolio_template_screen_add', 'default/personal' ) );
+                bp_core_load_template( apply_filters( 'bp_portfolio_template_screen_add', BP_PORTFOLIO_TEMPLATE . '/personal' ) );
             }
             
             // Check the nonce
             if(!wp_verify_nonce($_POST['_wpnonce'], 'project_form_nonce')) {
                 bp_core_add_message( __( 'There was an error recording the project, please try again', 'bp-portfolio' ), 'error' );
-                bp_core_load_template( apply_filters( 'bp_portfolio_template_screen_add', 'default/personal' ) );
+                bp_core_load_template( apply_filters( 'bp_portfolio_template_screen_add', BP_PORTFOLIO_TEMPLATE . '/personal' ) );
             }
             
             if(empty($_POST['title-input']) OR empty($_POST['url-input']) OR empty($_POST['description'])) {
@@ -148,7 +148,7 @@ function bp_portfolio_screen_edit() {
                 $project->get(array('id' => $project_id));
                 
                 if($project->query->post->post_author == bp_loggedin_user_id()) {
-                    bp_core_load_template( apply_filters( 'bp_portfolio_template_screen_one', 'default/add' ) );
+                    bp_core_load_template( apply_filters( 'bp_portfolio_template_screen_one', BP_PORTFOLIO_TEMPLATE . '/add' ) );
                 }
                     
             }

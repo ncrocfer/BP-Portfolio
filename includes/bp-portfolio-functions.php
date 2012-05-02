@@ -68,7 +68,7 @@ function bp_portfolio_save_item( $args = array() ) {
             if($attachment != 0)
                 $thumbnail = apply_filters( 'bp_portfolio_get_item_thumbnail', $attachment[0]);
             else
-                $thumbnail = apply_filters( 'bp_portfolio_get_item_thumbnail', BP_PORTFOLIO_PLUGIN_URL . '/templates/default/img/default.png');
+                $thumbnail = apply_filters( 'bp_portfolio_get_item_thumbnail', BP_PORTFOLIO_PLUGIN_URL . '/templates/' . BP_PORTFOLIO_TEMPLATE . '/img/default.png');
             
             
             /* Now record the new activity item */

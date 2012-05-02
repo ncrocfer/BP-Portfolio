@@ -33,7 +33,7 @@ class BP_Portfolio_Component extends BP_Component {
         $includes = array(
             'includes/bp-portfolio-actions.php',
             'includes/bp-portfolio-screens.php',
-//            'includes/bp-portfolio-filters.php',
+            'includes/bp-portfolio-filters.php',
             'includes/bp-portfolio-classes.php',
             'includes/bp-portfolio-activity.php',
             'includes/bp-portfolio-functions.php',

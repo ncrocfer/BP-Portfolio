@@ -21,7 +21,7 @@ class BP_Portfolio_Component extends BP_Component {
         
         $this->includes();
         $bp->active_components[$this->id] = '1';
-        add_action('init', array(&$this, 'register_post_types'));
+        // add_action('init', array(&$this, 'register_post_types'));
     }
     
     
@@ -37,8 +37,7 @@ class BP_Portfolio_Component extends BP_Component {
             'includes/bp-portfolio-classes.php',
             'includes/bp-portfolio-activity.php',
             'includes/bp-portfolio-functions.php',
-//            'includes/bp-portfolio-notifications.php',
-//            'includes/bp-portfolio-widgets.php',
+            'includes/bp-portfolio-widgets.php',
             'includes/bp-portfolio-cssjs.php',
             'includes/bp-portfolio-ajax.php',
             'includes/bp-portfolio-template.php'

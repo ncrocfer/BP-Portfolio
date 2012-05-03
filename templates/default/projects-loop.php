@@ -20,7 +20,7 @@
 
     <div class="item-project">
         <div class="item-project-pictures">
-            <img src="<?php bp_portfolio_item_thumbnail() ?>" width="250px" height="170px" />
+            <img src="<?php bp_portfolio_item_thumbnail( 'portfolio-thumb' ) ?>" width="250px" height="170px" />
         </div>
         <div class="item-project-content">
             <h3>

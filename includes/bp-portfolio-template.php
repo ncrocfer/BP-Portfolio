@@ -90,21 +90,36 @@ function bp_portfolio_item_url() {
 	function bp_portfolio_get_item_url() {
 		return apply_filters( 'bp_portfolio_get_item_url', get_post_meta(get_the_ID(), 'bp_portfolio_url', true) );
 	}
+        
+
+/**
+ * Get the author of the project 
+ */
+function bp_portfolio_item_author() {
+	echo bp_portfolio_get_item_author();
+}
+
+        /**
+        * Return the author of the project 
+        */
+	function bp_portfolio_get_item_author() {
+		return apply_filters( 'bp_portfolio_get_item_author', bp_core_get_user_displayname( get_the_author_ID() ) );
+	}
 
 
 /**
  * Get the thumbnail of the project 
  */
-function bp_portfolio_item_thumbnail() {
-    echo bp_portfolio_get_item_thumbnail();
+function bp_portfolio_item_thumbnail( $type = 'thumbnail' ) {
+    echo bp_portfolio_get_item_thumbnail( $type );
 }
 
         /**
         * Return the thumbnail of the project 
         */
-        function bp_portfolio_get_item_thumbnail() {
+        function bp_portfolio_get_item_thumbnail( $type = 'thumbnail' ) {
             global $items_template;
-            $thumbnail = wp_get_attachment_image_src($items_template->query->post->post_parent, 'portfolio-thumb');
+            $thumbnail = wp_get_attachment_image_src($items_template->query->post->post_parent, $type);
             
             if($thumbnail != 0)
                 return apply_filters( 'bp_portfolio_get_item_thumbnail', $thumbnail[0]);

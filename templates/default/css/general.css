@@ -111,3 +111,27 @@ span.error {
     font-style: italic;
     margin-left: 10px;
 }
+
+/* Last projects widget */
+.widget-item-project {
+    padding: 0 0 10px 0;
+    min-height: 42px;
+}
+
+.widget-item-project .widget-item-project-pictures {
+    float: left;
+}
+
+.widget-item-project .widget-item-project-pictures img {
+    border: 2px solid #EEEEEE;
+}
+
+.widget-item-project .widget-item-project-content {
+    margin-left: 44px;
+}
+
+.widget-all-projects {
+    float: right;
+    font-style: italic;
+    margin-bottom: 10px;
+}

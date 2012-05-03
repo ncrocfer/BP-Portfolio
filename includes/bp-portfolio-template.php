@@ -21,7 +21,8 @@ function bp_portfolio_has_items( $args = array() ) {
                     'updated_at' => date( 'Y-m-d H:i:s' ),
                     'tags' => array(),
                     'posts_per_page'	=> 10,
-                    'page'	=> 1
+                    'page'	=> 1,
+                    'search_terms' => null
                 );
                 
 		$r = wp_parse_args( $args, $defaults );
@@ -298,5 +299,23 @@ function bp_portfolio_user_id() {
             return get_the_author_ID();
     }
 
+    
+/**
+ * Echo the search form
+ */
+function bp_portfolio_projects_search_form() {
+	global $bp;
+
+	$default_search_value = bp_get_search_default_text( 'portfolio' );
+	$search_value         = !empty( $_REQUEST['s'] ) ? stripslashes( $_REQUEST['s'] ) : $default_search_value; ?>
+
+	<form action="" method="get" id="search-projects-form">
+		<label><input type="text" name="s" id="projects_search" value="<?php echo esc_attr( $search_value ) ?>"  onfocus="if (this.value == '<?php echo $default_search_value ?>') {this.value = '';}" onblur="if (this.value == '') {this.value = '<?php echo $default_search_value ?>';}" /></label>
+		<input type="submit" id="projects_search_submit" name="projects_search_submit" value="<?php _e( 'Search', 'buddypress' ) ?>" />
+	</form>
+
+<?php
+}
+    
 
 ?>

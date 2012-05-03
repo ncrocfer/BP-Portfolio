@@ -1,3 +1,4 @@
+<?php //print_r(bp_ajax_querystring( 'projects' ));?>
 <?php if(bp_portfolio_has_items( bp_ajax_querystring( 'projects' ) )) :?>
     <div id="pag-top" class="pagination">
 

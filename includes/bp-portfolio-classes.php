@@ -150,7 +150,8 @@ class BP_Portfolio_Item {
                 'url' => null,
                 'created_at' => date( 'Y-m-d H:i:s' ),
                 'updated_at' => date( 'Y-m-d H:i:s' ),
-                'tags' => array()
+                'tags' => array(),
+                'search_terms' => null
             );
 
             $r = wp_parse_args( $args, $defaults );
@@ -178,6 +179,11 @@ class BP_Portfolio_Item {
             $author_id = ($author_id) ? $author_id : $this->author_id;
             if ( $author_id ) {
                     $query_args['author'] = $author_id;
+            }
+            
+            // Filter by search terms
+            if ( isset($search_terms) AND ($search_terms != bp_get_search_default_text( 'portfolio' ))) {
+                $query_args['s'] = $search_terms;
             }
             
             $this->query = new WP_Query( $query_args );

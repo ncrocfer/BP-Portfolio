@@ -9,6 +9,15 @@
 
                     <h3><?php _e('Projects directory', 'bp-portfolio'); ?></h3>
                     
+                    <?php do_action( 'bp_before_directory_groups_content' ); ?>
+
+                    <div id="projects-dir-search" class="dir-search" role="search">
+
+                            <?php bp_portfolio_projects_search_form() ?>
+
+                    </div>
+
+                    
                     <?php do_action( 'template_notices' ); ?>
 
 			<div class="item-list-tabs" role="navigation">

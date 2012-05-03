@@ -177,6 +177,16 @@ function bp_portfolio_show_last_projects( $max = 5 ) {
 
 
 /**
+ * Add the new activity filters : new_project and edit_project 
+ */
+function bp_portfolio_add_activity_filter() {
+    echo '<option value="new_project">New Projects</option>';
+    echo '<option value="edit_project">Edited Projects</option>';
+}
+add_action('bp_activity_filter_options', 'bp_portfolio_add_activity_filter');
+
+
+/**
  * Handle file uploads
  * @see http://www.nicolaskuttler.com/code/simple-upload-field-for-wordpress-pluginsthemes/
  */

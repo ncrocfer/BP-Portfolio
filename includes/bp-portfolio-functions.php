@@ -151,28 +151,9 @@ if ( function_exists( 'add_image_size' ) ) {
  * Render the latest projects
  */
 function bp_portfolio_show_last_projects( $max = 5 ) {
-    
-    while ( bp_portfolio_has_items( array('posts_per_page' => $max) ) ) : bp_portfolio_the_item();
-    ?>
-
-        <div class="widget-item-project">
-            <div class="widget-item-project-pictures">
-                <img src="<?php bp_portfolio_item_thumbnail( 'portfolio-widget-thumb' ) ?>" width="36px" height="36px" />
-            </div>
-            <div class="widget-item-project-content">
-                <p>
-                    <a href="<?php echo bp_core_get_user_domain( bp_portfolio_get_user_id() ) . BP_PORTFOLIO_SLUG; ?>" title="<?php echo sprintf(__('from %s', 'bp-portfolio'), bp_portfolio_get_item_author()); ?>"><?php bp_portfolio_item_title() ?></a>
-                </p>
-            </div>
-        </div>
-
-    <?php
-    endwhile;
-    ?>
-
-    <span class="widget-all-projects"><a href="<?php echo trailingslashit(site_url()) . BP_PORTFOLIO_SLUG; ?>"><?php _e('See all projects', 'bp-portfolio'); ?></a></span>
-
-    <?php
+    global $bp_portfolio_widget_last_projects_max;
+    $bp_portfolio_widget_last_projects_max = $max;
+    load_template( apply_filters( 'bp_load_template', BP_PORTFOLIO_PLUGIN_DIR . '/templates/' . BP_PORTFOLIO_TEMPLATE . '/widgets/last-projects-widget.php' ), false );
 }
 
 

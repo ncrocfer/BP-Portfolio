@@ -278,13 +278,14 @@ function bp_portfolio_user_avatar( $args = '' ) {
                     'width'  => false,
                     'height' => false,
                     'html'   => true,
+                    'class'  => false,
                     'alt'    => __( 'Avatar of %s', 'buddypress' )
             );
 
             $r = wp_parse_args( $args, $defaults );
             extract( $r, EXTR_SKIP );
 
-            return apply_filters( 'bp_portfolio_get_user_avatar', bp_core_fetch_avatar( array( 'item_id' => get_the_author_ID(), 'type' => $type, 'width' => $width, 'height' => $height, 'html' => $html, 'alt' => $alt ) ) );
+            return apply_filters( 'bp_portfolio_get_user_avatar', bp_core_fetch_avatar( array( 'item_id' => get_the_author_ID(), 'type' => $type, 'width' => $width, 'height' => $height, 'html' => $html, 'class' => $class, 'alt' => $alt ) ) );
     }
     
     

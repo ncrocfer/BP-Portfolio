@@ -158,6 +158,22 @@ function bp_portfolio_show_last_projects( $max = 5 ) {
 
 
 /**
+ * Render the latest projects for a specified user
+ */
+function bp_portfolio_show_last_user_projects( $max = 5, $user = 0 ) {
+    global $bp_portfolio_widget_last_user_projects_max;
+    global $bp_portfolio_widget_last_user_projects_user;
+    $bp_portfolio_widget_last_user_projects_max = $max;
+    if($user == 0)
+        $bp_portfolio_widget_last_user_projects_user = bp_displayed_user_id();
+    else
+        $bp_portfolio_widget_last_user_projects_user = $user;
+    
+    load_template( apply_filters( 'bp_load_template', BP_PORTFOLIO_PLUGIN_DIR . '/templates/' . BP_PORTFOLIO_TEMPLATE . '/widgets/last-user-projects-widget.php' ), false );
+}
+
+
+/**
  * Add the new activity filters : new_project and edit_project 
  */
 function bp_portfolio_add_activity_filter() {
@@ -205,7 +221,6 @@ function fileupload_process( $file ) {
          * Check write permissions
          */
         if ( !is_writeable( $upload_dir['path'] ) ) {
-          $this->msg_e('Unable to write to directory %s. Is this directory writable by the server?');
           return;
         }
 
@@ -213,7 +228,6 @@ function fileupload_process( $file ) {
          * Save temporary file to uploads dir
          */
         if ( !@move_uploaded_file($filetmp, $filedest) ){
-          $this->msg_e("Error, the file $filetmp could not moved to : $filedest ");
           continue;
         }
 
@@ -233,6 +247,28 @@ function fileupload_process( $file ) {
       }
     }
 }
+
+/**
+ * Add custom JS in Admin footer 
+ */
+function bp_portfolio_add_js_admin() {
+	?>
+	<script type="text/javascript">
+	jQuery(document).ready(function(){
+            jQuery('#bp-portfolio-last-user-projects-widget-checkbox').live('click', function(){
+                
+                if (jQuery(this).is(':checked')) {
+                    jQuery('.bp-portfolio-last-user-projects-widget-select').attr('disabled', true);
+                } else {
+                    jQuery('.bp-portfolio-last-user-projects-widget-select').removeAttr('disabled');
+                }
+
+            });
+	});
+	</script>
+	<?php
+}
+add_action('admin_footer', 'bp_portfolio_add_js_admin');
 
 
 ?>

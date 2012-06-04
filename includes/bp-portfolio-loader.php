@@ -37,10 +37,11 @@ class BP_Portfolio_Component extends BP_Component {
             'includes/bp-portfolio-classes.php',
             'includes/bp-portfolio-activity.php',
             'includes/bp-portfolio-functions.php',
-            'includes/bp-portfolio-widgets.php',
             'includes/bp-portfolio-cssjs.php',
             'includes/bp-portfolio-ajax.php',
-            'includes/bp-portfolio-template.php'
+            'includes/bp-portfolio-template.php',
+            'includes/widgets/bp-portfolio-last-projects-widget.php',
+            'includes/widgets/bp-portfolio-last-user-projects-widget.php',
         );
         
         parent::includes($includes);
@@ -137,7 +138,7 @@ class BP_Portfolio_Component extends BP_Component {
             'name' => __('Projects', 'bp-portfolio'),
             'singular' => __('Project', 'bp-portfolio')
         );
-
+        
         // Set up the argument array for register_post_type()
         $args = array(
             'label' => __('Projects', 'bp-portfolio'),
@@ -151,7 +152,7 @@ class BP_Portfolio_Component extends BP_Component {
                 'with_front' => FALSE,
             ),
         );
-
+        
         register_post_type('portfolio', $args);
         parent::register_post_types();
     }
